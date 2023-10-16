@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.member.model.vo.Member" %>
     <%
+    	String contextPath = request.getContextPath();
+    
     	Member loginUser = (Member)session.getAttribute("loginUser");
     	// 로그인 시도 전 menubar.jsp로딩 시 해당객체 : null
     	// 로그인 성공 후 menubar.jsp로딩 시 해당객체 : 로그인 성공 한 회원의 정보
@@ -49,7 +51,7 @@
     <div class="login-area">
      <% if(loginUser == null) {%>
         <!-- case1. 로그인 전-->
-        <form action="/jsp/login.me" method="POST">
+        <form action="<%= contextPath %>/login.me" method="POST">
             <table>
                 <tr>
                     <th>아이디</th>

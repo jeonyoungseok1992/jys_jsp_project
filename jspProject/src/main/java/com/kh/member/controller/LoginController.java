@@ -57,20 +57,22 @@ public class LoginController extends HttpServlet {
 		 *  		데이터를 꺼내고자한다면 특정객체.getAttribute("키") : object타입으로 반환
 		 *  		데이터를 지우고자한다면 특정객체.removeAttribute("키")
 		 *  
-		 *  
-		 *  
 		 */
 		
 		// 4) 처리된 결과를 가지고 사용자가 보게될 응답뷰를 지정해서 포워딩 또는 url재요청
 			if (loginUser == null) {
+				
 				//조회결과가 없음 => 로그인실패 => 에러문구가 보여지는 에러페이지 응답
 				request.setAttribute("errorMsg", "로그인 실패");
 				
 				//응답페이지(jsp)에게 위임시 필요한 객체(RequestDispatcher)
 				RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+				
 				//응답객체, 요청객체 포워딩
 				view.forward(request, response);
+				
 			} else {
+				
 				// 조회결과 있음 => 로그인 성공 !!
 				
 				// 로그인한 회원정보(loginUser)를 session에 담아버리기 (왜? 여기저기서 다 갖다쓰도록)
@@ -78,10 +80,18 @@ public class LoginController extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", loginUser);
 				
-				//포워딩
-				RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+				//1. 포워딩방식 => 해당방식은 url이 변경되지 않는다. => 우리는 localhost:8002/jsp/라는 기존에 메인화면에 url이 있는데
+				// 해당 방식으로 화면 응답 시 url은 http://localhost:8002/jsp/login.me가 나타나며 실제 화면은 localhost:8002/jsp/의 응답화면이 나타나게 된다
+				
+				//응답페이지(jsp)에게 위임 시 필요한 객체(RequestDispatcher)
+				//RequestDispatcher view = request.getRequestDispatcher("index.jsp");
 				//응답객체, 요청객체 포워딩
-				view.forward(request, response);
+				//view.forward(request, response);
+				
+				// 2. url재요청 방식
+				// 기존에 해당 페이지를 응답하는 url이 존재한다면 사용 가능
+				// 응답페이지 => index.jsp페이지(jsp url재요청)
+				response.sendRedirect(request.getContextPath());
 				
 			}
 	}
