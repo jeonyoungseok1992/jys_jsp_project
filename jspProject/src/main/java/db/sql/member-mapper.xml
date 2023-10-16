@@ -18,4 +18,16 @@ STATUS
     AND   USER_PWD = ?
     AND STATUS = 'Y'
 	</entry>
+	
+	<entry key="insertMember">
+insert into member
+(USER_NO,
+ USER_ID,
+ USER_PWD,
+ USER_NAME,
+ PHONE,
+ EMAIL,
+ ADDRESS,
+ INTEREST) values(SEQ_UNO.NEXTVAL,?, ?, ?, ?, ?, ?, ?)
+	</entry>	
 </properties>

@@ -37,10 +37,27 @@ public class Member {
 		this.modifyDate = modifyDate;
 		this.status = status;
 	}
+	
+	// 회원가입시 생성자
+	public Member(String userId, String userPwd, String userName, String phone, String email, String address,
+			String interest) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.interest = interest;
+	}
+	
+	
 
 	public int getUserNo() {
 		return userNo;
 	}
+
+
 
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;

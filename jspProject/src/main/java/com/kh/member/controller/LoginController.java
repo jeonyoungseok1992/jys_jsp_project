@@ -76,7 +76,7 @@ public class LoginController extends HttpServlet {
 				// 조회결과 있음 => 로그인 성공 !!
 				
 				// 로그인한 회원정보(loginUser)를 session에 담아버리기 (왜? 여기저기서 다 갖다쓰도록)
-				// Servlet에서는 sesstion에 접근하고자 한다면 우선 세션객체를 얻어와야한다.
+				// Servlet에서는 session에 접근하고자 한다면 우선 세션객체를 얻어와야한다.
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", loginUser);
 				
