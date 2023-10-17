@@ -105,6 +105,7 @@
 
     <script>
         function checkPwd(){
+            
             let pwdInput = document.querySelector("#enroll-form input[name=userPwd]");
             let pwdCheckInput = document.querySelector("#enroll-form input[name=userPwdCheck]")
             console.log(pwdInput);

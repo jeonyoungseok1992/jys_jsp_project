@@ -37,7 +37,7 @@
         <br>
         <h2 align="center">마이페이지</h2>
 		<!-- inclue해줬기 때문에 include안에서 선언한 contextPath를 사용 가능 -->
-        <form action="/myPage.me" id="mypage-form" method="post">   
+        <form action="<%=contextPath %>/update.me" id="mypage-form" method="post">   
             <table>
                 <tr>
                     <td>* 아이디</td>
@@ -105,15 +105,98 @@
             <br><br>
     
             <div align = "center">
-                <button type="submit">정보변경</button>
-                <button type="button">비밀번호변경</button>
-                <button type="button">회원탈퇴</button>
+                <button type="submit" class="btn btn-secondary">정보변경</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatePwdModal">비밀번호변경</button>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal">회원탈퇴</button>
             </div>
     
             <br><br>
     
         </form>
     </div>
+
+    <!-- 비밀번호 변경용 Modal -->
+<div class="modal" id="updatePwdModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">비밀번호 변경</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body" align="center">
+          <form action="<%=contextPath%>/UpdatePwd.me" method ="post">
+          	<input type="hidden" name="userId" value=<%=userId %>>
+            <table>
+                <tr>
+                    <td>현재 비밀번호</td>
+                    <td><input type="password" name="userPwd" required></td>
+                </tr>
+                <tr>
+                    <td>변경할 비밀번호</td>
+                    <td><input type="password" name="updatePwd" required></td>
+                </tr>
+                <tr>
+                    <td>변경할 비밀번호 확인</td>
+                    <td><input type="password" name="checkupdatePwd" required></td>
+                </tr>
+            </table>
+            <br>
+            <button type="submit" class="btn btn-sm btn-secondary" onclick="return checkPwd()">비밀번호변경</button>
+
+          </form>
+
+          <script>
+            function checkPwd(){
+                let pwdInput = document.querySelector("input[name=updatePwd]");
+            let pwdCheckInput = document.querySelector("input[name=checkupdatePwd]")
+
+            if(pwdInput.value !== pwdCheckInput.value){
+                alert("비밀번호가 일치하지 않습니다");
+
+                return false
+
+            }
+        }
+          </script>
+
+
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  <!-- 회원탈퇴용 Modal -->
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">회원탈퇴</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body" align="center">
+          <form action="<%=contextPath%>/delete.me" method="get">
+          	<b>탈퇴 후 복구가 불가능합니다. <br> 정말로 탈퇴하시겠습니까?</b>
+          	<br><br>
+          	<input type="hidden" name="userId" value="<%=userId%>">
+          	비밀번호 : <input type="password" name="userPwd" required>
+          	<br><br>
+          	<button type="submit" class="btn btn-sm btn-danger">탈퇴하기</button>
+          </form>
+
+        </div>
+  
+      </div>
+    </div>
+  </div>
    
 
 </body>
